@@ -1,4 +1,4 @@
-﻿name: daily-update
+﻿name: 每日抓取实习岗位
 
 on:
   schedule:
@@ -59,4 +59,5 @@ jobs:
             git commit -m "chore: 每日岗位更新 $(date +'%Y-%m-%d %H:%M')"
             git push
           fi
+
 

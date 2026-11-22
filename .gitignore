@@ -1,4 +1,4 @@
-# 依赖
+﻿# 依赖
 .venv/
 __pycache__/
 *.pyc
@@ -25,6 +25,5 @@ config/private.yaml
 .idea/
 *.swp
 
-# 本地笔记（不公开）
-本地文档/
+
 
