@@ -1,0 +1,51 @@
+# 岗位方向白名单
+# 只有标题命中 enabled 里的方向词，才进入看板与打分排序。
+# 改完重跑 tools/build_dashboard.py 即可（不用重新抓）。
+
+directions:
+  enabled:
+    - name: 数据分析
+      keywords: ["数据分析", "数分"]
+    - name: 商业分析
+      keywords: ["商业分析"]
+    - name: 数据科学
+      keywords: ["数据科学"]
+    - name: 策略运营
+      keywords: ["策略运营"]
+    - name: 经营分析
+      keywords: ["经营分析"]
+    - name: 用户增长
+      keywords: ["用户增长", "增长分析"]
+    - name: 风控策略
+      keywords: ["风控策略", "风控策略分析"]
+
+  # 备选（默认关闭）。战略分析已按需求撤掉，不再保留。
+  optional:
+    - name: 数据挖掘
+      keywords: ["数据挖掘"]
+      hits: 8
+      note: 偏算法，需要的话打开
+    - name: 商业智能
+      keywords: ["商业智能", "BI"]
+      hits: 2
+      note: 量很少
+
+# 标题里出现这些词，即使是白名单方向也排掉（避免"运营/产品"混进来）
+exclude:
+  - 数据标注
+  - 数据采集
+  - 审核
+  - 客服
+  - 销售
+  - 广告投放
+  - 直播运营
+  - 用户运营
+  - 内容运营
+  - 产品经理
+  - 产品运营
+  - 视觉设计
+  - 交互设计
+  - 测试
+  - 前端
+  - 后端
+  - 算法工程师

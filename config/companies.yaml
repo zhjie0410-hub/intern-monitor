@@ -1,0 +1,187 @@
+# 公司清单
+# slug 只用于代码文件名（src/scanners/<slug>.py）；数据目录一律用中文名
+
+companies:
+  # ── 已接入 ──
+  - slug: bytedance
+    name: 字节跳动
+    entry: https://jobs.bytedance.com/campus/position
+    mode: browser-intercept
+    api: POST /api/v1/search/job/posts
+    has_publish_time: true
+    enabled: true
+    status: done
+
+  - slug: tencent
+    name: 腾讯
+    entry: https://join.qq.com/post.html
+    mode: http
+    api: POST /api/v1/position/searchPosition（projectMappingIdList=[104] 日常实习）
+    has_publish_time: false
+    enabled: true
+    status: done
+
+  # ── 接口已确认，可直接写适配器 ──
+  - slug: xiaohongshu
+    name: 小红书
+    entry: https://job.xiaohongshu.com/campus/intern
+    mode: browser-intercept
+    api: POST /websiterecruit/position/pageQueryPosition（recruitType=campus, jobProjects=[madang_trainee,other_project]）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  - slug: xiaomi
+    name: 小米
+    entry: https://hr.xiaomi.com/website/opportunities.html?project=实习&q=数据分析
+    mode: browser-intercept
+    api: GET /website/api/agent/searchJobPage
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+    note: 搜索结果会混入非实习岗，必须再按 project=实习 过滤
+
+  - slug: alibaba
+    name: 阿里巴巴
+    entry: https://campus-talent.alibaba.com/campus/position?batchId=100000560002
+    mode: browser-intercept
+    api: POST /position/search（batchId=100000560002, channel=campus_group_official_site）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+    note: 需带 _csrf 查询参数；项目类型勾「阿里巴巴日常实习生」
+
+  - slug: kuaishou
+    name: 快手
+    entry: https://zhaopin.kuaishou.cn/#/official/trainee/
+    mode: browser-intercept
+    api: GET /recruit/e/api/v1/open/positions/simple
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  - slug: pinduoduo
+    name: 拼多多
+    entry: https://careers.pddglobalhr.com/campus/
+    mode: browser-intercept
+    api: POST /api/careers/api/recruit/position/train/list
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  - slug: netease
+    name: 网易
+    entry: https://hr.163.com/job-list.html?workType=1
+    mode: browser-intercept
+    api: POST /api/hr163/position/queryPage（workType=1）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  - slug: dewu
+    name: 得物
+    entry: https://campus.dewu.com/578078/position/list
+    mode: browser-intercept
+    api: POST /api/v1/search/job/posts（与字节同款）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  # ── 有障碍或待挖 ──
+  - slug: mihoyo
+    name: 米哈游
+    entry: https://jobs.mihoyo.com/#/campus/position?projectIds[0]=4
+    enabled: false
+    status: dropped
+    note: 按需求移除（列表接口无时间字段）
+
+  - slug: didi
+    name: 滴滴
+    entry: https://app.mokahr.com/apply/didiglobal/6222#/
+    mode: dom
+    api: 接口加密，读 DOM（发布于 YYYY-MM-DD）
+    has_publish_time: true
+    enabled: false
+    status: needs-dom-parser
+    note: 必须 wait_for_selector("text=发布于", 25s)，否则会拿到 0 个卡片；列表页无 JD
+
+  - slug: baidu
+    name: 百度
+    entry: https://talent.baidu.com/jobs/list?recruitType=INTERN
+    enabled: false
+    status: dropped
+    note: 按决定放弃（SSR 只能拿首屏 10 条，接口在 webpack 动态 chunk；F12 黑屏无法人工取包）
+
+  - slug: jd
+    name: 京东
+    entry: https://campus.jd.com/#/jobs
+    mode: browser-intercept
+    api: POST /api/wx/position/page?type=present（planIdList=[45] 即 JD YOUNG-实习生计划）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+
+  - slug: meituan
+    name: 美团
+    entry: https://zhaopin.meituan.com/web/campus
+    mode: browser-intercept
+    api: POST /api/official/job/getJobList（先点 .condition_item_filter_item「日常实习」，路由变 ?hiringType=4_6）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+    note: 时间字段是 refreshTime（毫秒时间戳）；firstPostTime/expiredTime 可能为 null
+
+  - slug: antgroup
+    name: 蚂蚁
+    entry: https://talent.antgroup.com/campus-full-list?type=campus_intern&batchId=25051200066269
+    mode: browser-intercept
+    api: POST hrcareersweb.antgroup.com/api/campus/position/search?ctoken=...（batchIds=["25051200066269"]）
+    has_publish_time: true
+    enabled: false
+    status: api-confirmed
+    note: publishTime 是 ISO 格式（2026-11-13T11:25:21.000+00:00）
+
+  # ── 暂缓 / 不做 ──
+  - slug: ctrip
+    name: 携程
+    entry: https://careers.ctrip.com/#/campus
+    mode: browser-intercept
+    api: —
+    has_publish_time: null
+    enabled: false
+    status: paused
+    note: 「留用实习生」暂未开启，当前无实习岗
+
+  - slug: shein
+    name: SHEIN
+    entry: https://careers.shein.com/
+    enabled: false
+    status: dropped
+    note: 按需求移除
+
+  - slug: huawei
+    name: 华为
+    entry: https://career.huawei.com/cn
+    enabled: false
+    status: dropped
+    note: 按需求移除
+
+  - slug: nio
+    name: 蔚来
+    entry: https://www.nio.cn/careers
+    enabled: false
+    status: dropped
+    note: 按需求移除（另有 WAF 567）
+
+  - slug: bilibili
+    name: 哔哩哔哩
+    enabled: false
+    status: dropped
+  - slug: huolala
+    name: 货拉拉
+    enabled: false
+    status: dropped
+  - slug: sf
+    name: 顺丰
+    enabled: false
+    status: dropped

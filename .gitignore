@@ -1,0 +1,30 @@
+# 依赖
+.venv/
+__pycache__/
+*.pyc
+.pkgs/
+
+# 抓取产物（由 Actions 提交最新一份到 data/latest/）
+data/exports/
+data/probe/
+data/raw/
+logs/
+
+# 本机状态：已投标记、浏览器配置、简历等，绝不外传
+data/snapshots/
+data/browser-profile/
+profile-remote/
+state.db
+*.resume.*
+resume*/
+简历*
+config/private.yaml
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 本地笔记（不公开）
+本地文档/
+
