@@ -32,7 +32,7 @@ DETAIL_URLS = {
     "美团": "https://zhaopin.meituan.com/web/position/detail?jobUnionId={id}",
     "网易": "https://hr.163.com/job-detail.html?id={id}",
     "小红书": "https://job.xiaohongshu.com/campus/position/{id}",
-    "快手": "https://zhaopin.kuaishou.cn/recruit/e/#/official/trainee/?positionId={id}",
+    "快手": "https://zhaopin.kuaishou.cn/recruit/e/#/official/trainee/job-info/{id}",
     # 以下未验证到可用的详情页，回退到列表页
     "京东": "https://campus.jd.com/#/jobs",
     "得物": "https://campus.dewu.com/578078/position/list",
